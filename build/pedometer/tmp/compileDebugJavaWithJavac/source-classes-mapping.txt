@@ -1,0 +1,5 @@
+cachet/plugins/pedometer/PedometerPlugin.java
+ cachet.plugins.pedometer.PedometerPlugin
+ cachet.plugins.pedometer.PedometerPlugin$1
+cachet/plugins/pedometer/BuildConfig.java
+ cachet.plugins.pedometer.BuildConfig
