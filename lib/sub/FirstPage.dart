@@ -16,7 +16,7 @@ class FirstPage extends StatelessWidget {
             children: <Widget>[
               Container(
                 height: 700,
-                width: 375,
+                width: 350,
                 color: Colors.amber[300],
                 child: ListView(
                   scrollDirection: Axis.vertical,
@@ -29,12 +29,16 @@ class FirstPage extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all(10),
                                 child: Container(
                                   child: Text("푸름",style: TextStyle(fontSize: 30,color:Colors.amber[700]))
                                 )),
-                            Text("날씨 좋은 하늘",style: TextStyle(fontSize: 20)),
-                            Image.asset('imageP/sky.png',width: 500,height: 300),
+
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text("날씨 좋은 하늘",style: TextStyle(fontSize: 20)),
+                            ),
+                            Image.asset('imageP/sky.png',width: 500,height: 500),
                           ],
                         ),
                         elevation: 4.0, //그림자 깊이
@@ -50,12 +54,15 @@ class FirstPage extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all(10),
                                 child: Container(
                                     child: Text("승희",style: TextStyle(fontSize: 30,color:Colors.amber[700]))
                                 )),
-                            Text("하늘 좋은 날씨",style: TextStyle(fontSize: 20)),
-                            Image.asset('imageP/sky2.png',width: 500,height: 300),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text("하늘 좋은 날씨",style: TextStyle(fontSize: 20)),
+                            ),
+                            Image.asset('imageP/sky2.png',width: 500,height: 500),
                           ],
                         ),
                         elevation: 4.0, //그림자 깊이
@@ -71,12 +78,15 @@ class FirstPage extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all(10),
                                 child: Container(
                                     child: Text("호준",style: TextStyle(fontSize: 30,color:Colors.amber[700]))
                                 )),
-                            Text("날씨 좋은 하늘",style: TextStyle(fontSize: 20)),
-                            Image.asset('imageP/sky3.png',width: 500,height: 300),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text("날씨 좋은 하늘",style: TextStyle(fontSize: 20)),
+                            ),
+                            Image.asset('imageP/sky3.png',width: 500,height: 500),
                           ],
                         ),
                         elevation: 4.0, //그림자 깊이
@@ -92,12 +102,15 @@ class FirstPage extends StatelessWidget {
                         child: Column(
                           children: <Widget>[
                             Padding(
-                                padding: EdgeInsets.all(20),
+                                padding: EdgeInsets.all(10),
                                 child: Container(
                                     child: Text("태용",style: TextStyle(fontSize: 30,color:Colors.amber[700]))
                                 )),
-                            Text("좋은 날씨 하늘",style: TextStyle(fontSize: 20)),
-                            Image.asset('imageP/sky4.png',width: 500,height: 300),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text("좋은 날씨 하늘",style: TextStyle(fontSize: 20)),
+                            ),
+                            Image.asset('imageP/sky4.png',width: 500,height: 500),
                           ],
                         ),
                         elevation: 4.0, //그림자 깊이
@@ -111,14 +124,6 @@ class FirstPage extends StatelessWidget {
                 // mainAxisAlignment: MainAxisAlignment.spaceAround,
               ),
             ],
-
-
-            //   children: <Widget>[
-            //     Padding(
-            //       padding: EdgeInsets.all(50),
-            //       child: Text('          소셜')),
-            //     Image.asset("imageP/sky.png",width: 400,height: 400,)
-            // ],
           ),
       ),
     ),

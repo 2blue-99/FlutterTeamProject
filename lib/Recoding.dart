@@ -16,6 +16,10 @@ class Recoding extends StatefulWidget {
 
 class _RecodingState extends State<Recoding> {
 
+  num count = 0;
+
+  // dynamic nowLocation1 =0;
+  // dynamic nowLocation2 =0;
   dynamic gap1 = "";
   dynamic gap2 = "";
   dynamic gap3 = "";
@@ -26,7 +30,7 @@ class _RecodingState extends State<Recoding> {
   dynamic nowLongitude;
   var _icon = Icons.play_arrow;
   var _color = Colors.amber;
-  dynamic result="";
+  dynamic result = "";
 
   late Timer _timer;
   var _time = 0;
@@ -39,7 +43,15 @@ class _RecodingState extends State<Recoding> {
     super.dispose();
   }
 
-  getLocation() async {
+  @override
+  void initState() {
+    print("hhelo");
+    getLocation();
+    print("hhelo");
+  }
+
+
+  void getLocation() async {
     LocationPermission permission = await Geolocator.requestPermission();
     Position position = await Geolocator.
     getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
@@ -47,10 +59,11 @@ class _RecodingState extends State<Recoding> {
     nowLongitude = position.longitude;
   }
 
-  num pointToPoint(double locate1, double locate2, double longitude1, double longitude2) {
+  num pointToPoint(double locate1, double locate2, double longitude1,
+      double longitude2) {
     dynamic km = distance.as(
-        LengthUnit.Kilometer, LatLng(locate1,longitude1), LatLng(locate2, longitude2));
-    print('답은답은답은답은답은답은답은답은답은$km');
+        LengthUnit.Meter, LatLng(locate1, longitude1),
+        LatLng(locate2, longitude2));
     return km;
   }
 
@@ -75,9 +88,7 @@ class _RecodingState extends State<Recoding> {
       floatingActionButton: FloatingActionButton(
         onPressed: () =>
             setState(() {
-              // getLocation();
-              // gap1 = nowLatitude;
-              // gap2 = nowLongitude;
+              print("hello");
               _click();
             }),
         child: Icon(_icon),
@@ -149,7 +160,6 @@ class _RecodingState extends State<Recoding> {
     while (minute > 59)
       minute -= 60;
 
-
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(40),
@@ -174,44 +184,45 @@ class _RecodingState extends State<Recoding> {
                     ':$sec',
                     style: TextStyle(fontSize: 20),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 60,
                   ),
                 ],)
               ],),
-                Column(children: [
-                  Icon(Icons.directions_walk, color: Colors.blue, size: 40,),
-                  Row(children: [
-                    Text(
-                      '#',
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    SizedBox(
-                      height: 60,
-                    ),
-                  ],)
-                ],),
-                Column(children: [
-                  Icon(Icons.no_food, color: Colors.blue, size: 40,),
-                  Row(children: [
-                    Text(
-                      '0',
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    SizedBox(
-                      height: 60,
-                    ),
-                  ],)
-                ],),
+                // Column(children: [
+                //   Icon(Icons.directions_walk, color: Colors.blue, size: 40,),
+                //   Row(children: const [
+                //     Text(
+                //       '#',
+                //       style: TextStyle(fontSize: 30),
+                //     ),
+                //     SizedBox(
+                //       height: 60,
+                //     ),
+                //   ],)
+                // ],),
+                // Column(children: [
+                //   Icon(Icons.no_food, color: Colors.blue, size: 40,),
+                //   Row(children: const [
+                //     Text(
+                //       '0',
+                //       style: TextStyle(fontSize: 30),
+                //     ),
+                //     SizedBox(
+                //       height: 60,
+                //     ),
+                //   ],)
+                // ],
+                // ),
               ],
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Text("현재 위치 : $gap1 , $gap2"),
+              child: Text("현재 위치 : $gap1  $gap2"),
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Text("마지막 위치 : $gap3 , $gap4"),
+              child: Text("마지막 위치 : $gap3  $gap4"),
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
@@ -224,45 +235,46 @@ class _RecodingState extends State<Recoding> {
     );
   }
 
+  void running() {
+    getLocation();
+    gap1 = nowLatitude;
+    gap2 = nowLongitude;
+
+    while (true) {
+      Timer.periodic(Duration(seconds: 2), (timer) {
+        count++;
+        getLocation();
+        gap3 = nowLatitude;
+        gap4 = nowLongitude;
+        result = pointToPoint(gap1, gap3, gap2, gap4);
+      });
+      if (count == 10) {
+        break;
+      }
+    }
+  }
+
   void _click() {
     _isPlaying = !_isPlaying;
     if (_icon == Icons.play_arrow) {
+      _icon = Icons.pause;
+      _color = Colors.grey;
+      gap1 = 0;
+      gap2 = 0;
+      gap3 = 0;
+      gap4 = 0;
+      result = 0;
       getLocation();
       gap1 = nowLatitude;
       gap2 = nowLongitude;
-      print("처음 꺼 ${gap1}, ${gap2}");
-      _icon = Icons.pause;
-      _color = Colors.grey;
-      // if (gap1 == null && gap2 == null) {
-      //   getLocation();
-      //   gap1 = nowLatitude;
-      //   gap2 = nowLongitude;
-      //   print("처음 꺼 ${gap1}, ${gap2}");
-      // }
+
       _start();
+      // running();
     } else {
       getLocation();
-      // gap3 = nowLatitude;
-      // gap4 = nowLongitude;
-
-      // gap3 = 36.792838;
-      // gap4 = 127.106366;
-
-      gap3 = 36.734976;
-      gap4 = 127.077838;
-
-      print("처음 꺼 ${gap1}, ${gap2}");
-      print("두번째 꺼${gap3}, ${gap4}");
-      //
-      if(gap1 != gap2) {
-        result = pointToPoint(gap1, gap3, gap2, gap4);
-      }
-      //
-      print('답은 : $result');
-
-      _icon = Icons.play_arrow;
-      _color = Colors.amber;
-      _pause();
+      gap3 = nowLatitude;
+      gap4 = nowLongitude;
+      result = pointToPoint(gap1, gap3, gap2, gap4);
     }
   }
 
@@ -280,6 +292,13 @@ class _RecodingState extends State<Recoding> {
 
   void _reset() {
     setState(() {
+      gap1 = 0;
+      gap2 = 0;
+      gap3 = 0;
+      gap4 = 0;
+      result = 0;
+      _icon = Icons.play_arrow;
+      _color = Colors.amber;
       if (_icon == Icons.pause) {
         _icon = Icons.play_arrow;
         _color = Colors.amber;

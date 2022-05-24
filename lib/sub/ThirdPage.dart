@@ -31,7 +31,7 @@ class _ThirdPageState extends State<ThirdPage> {
                         children: <Widget>[
                           Text(
                             "사용자 정보",
-                            style: TextStyle(fontSize: 25, color: Colors.white),
+                            style: TextStyle(fontSize: 25),
                           ),
                           Text("\nID", style: TextStyle(
                               fontSize: 25, color: Colors.white))
@@ -43,7 +43,7 @@ class _ThirdPageState extends State<ThirdPage> {
                       child: Column(
                         children: <Widget>[
                           Text("키(cm)", style: TextStyle(
-                              fontSize: 25, color: Colors.white)),
+                              fontSize: 25)),
                           Text("\n170", style: TextStyle(
                               fontSize: 25, color: Colors.white))
                         ],
@@ -54,7 +54,7 @@ class _ThirdPageState extends State<ThirdPage> {
                       child: Column(
                         children: <Widget>[
                           Text("몸무게(kg)", style: TextStyle(
-                              fontSize: 25, color: Colors.white)),
+                              fontSize: 25)),
                           Text("\n68", style: TextStyle(
                               fontSize: 25, color: Colors.white))
                         ],
