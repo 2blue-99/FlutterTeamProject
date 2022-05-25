@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'Recoding.dart';
 import 'sub/SecondPage.dart';
-
+import 'main.dart';
 
 class Result extends StatefulWidget {
   @override
@@ -147,7 +147,7 @@ class _MyHomePage extends State<Result> {
                           style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.orange),),
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(
-                                builder: (_) => SecondPage()));
+                                builder: (_) => MyHomePage()));
                           })
                     ],
                   ),
@@ -156,22 +156,3 @@ class _MyHomePage extends State<Result> {
             )));
   }
 }
-
-
-// class Result extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//         child: Center(
-//             child:Column(
-//               children: <Widget>[
-//                 Text("\n\n\n\n\n\n\n\n\n\결과"),
-//               ],
-//             )
-//
-//         ),
-//       ),
-//     );
-//   }
-// }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import "package:flutter/material.dart";
 import 'package:geolocator/geolocator.dart';
@@ -24,13 +25,15 @@ class _RecodingState extends State<Recoding> {
   dynamic gap2 = "";
   dynamic gap3 = "";
   dynamic gap4 = "";
-
+  dynamic now1="";
+  dynamic now2="";
   final Distance distance = Distance();
   dynamic nowLatitude;
   dynamic nowLongitude;
   var _icon = Icons.play_arrow;
   var _color = Colors.amber;
-  dynamic result = "";
+  num result = 0;
+  num hap = 0;
 
   late Timer _timer;
   var _time = 0;
@@ -45,18 +48,47 @@ class _RecodingState extends State<Recoding> {
 
   @override
   void initState() {
-    print("hhelo");
     getLocation();
-    print("hhelo");
+    gap1 = 0;
+    gap2 = 0;
+    gap3 = 0;
+    gap4 = 0;
+    now1 = 0;
+    now2 = 0;
+    result = 0;
+    hap = 0;
   }
-
 
   void getLocation() async {
     LocationPermission permission = await Geolocator.requestPermission();
     Position position = await Geolocator.
     getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    nowLatitude = position.latitude;
-    nowLongitude = position.longitude;
+    now1 = position.latitude;
+    now2 = position.longitude;
+    gap1 = now1;
+    gap2 = now2;
+  }
+
+  void keepGetLocation() async {
+    while(true) {
+      if (_isPlaying == false){
+        break;
+      }
+      sleep(const Duration(seconds:2));
+      LocationPermission permission = await Geolocator.requestPermission();
+      Position position = await Geolocator.
+      getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      gap3 = position.latitude;
+      gap4 = position.longitude;
+      result = pointToPoint(gap1, gap3, gap2, gap4);
+      if (result<=1){
+        result=0;
+      }
+      hap = hap + result;
+      count++;
+      gap1 = gap3;
+      gap2 = gap4;
+    }
   }
 
   num pointToPoint(double locate1, double locate2, double longitude1,
@@ -88,7 +120,6 @@ class _RecodingState extends State<Recoding> {
       floatingActionButton: FloatingActionButton(
         onPressed: () =>
             setState(() {
-              print("hello");
               _click();
             }),
         child: Icon(_icon),
@@ -166,68 +197,77 @@ class _RecodingState extends State<Recoding> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            Padding(
+              padding: const EdgeInsets.all(40.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-              children: <Widget>[Column(children: [
-                Icon(Icons.timer, color: Colors.amber, size: 40,),
-                Row(children: [
-                  Text(
-                    '$hour',
-                    style: TextStyle(fontSize: 30),
-                  ),
-                  Text(
-                    ':$minute',
-                    style: TextStyle(fontSize: 30),
-                  ),
-                  Text(
-                    ':$sec',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  const SizedBox(
-                    height: 60,
-                  ),
-                ],)
-              ],),
-                // Column(children: [
-                //   Icon(Icons.directions_walk, color: Colors.blue, size: 40,),
-                //   Row(children: const [
-                //     Text(
-                //       '#',
-                //       style: TextStyle(fontSize: 30),
-                //     ),
-                //     SizedBox(
-                //       height: 60,
-                //     ),
-                //   ],)
-                // ],),
-                // Column(children: [
-                //   Icon(Icons.no_food, color: Colors.blue, size: 40,),
-                //   Row(children: const [
-                //     Text(
-                //       '0',
-                //       style: TextStyle(fontSize: 30),
-                //     ),
-                //     SizedBox(
-                //       height: 60,
-                //     ),
-                //   ],)
-                // ],
-                // ),
-              ],
+                children: <Widget>[Column(children: [
+                  Icon(Icons.timer, color: Colors.amber, size: 40,),
+                  Row(children: [
+                    Text("시간 : ",style: TextStyle(fontSize: 25),),
+                    Text(
+                      '$hour',
+                      style: TextStyle(fontSize: 30),
+                    ),
+                    Text(
+                      ':$minute',
+                      style: TextStyle(fontSize: 30),
+                    ),
+                    Text(
+                      ':$sec',
+                      style: TextStyle(fontSize: 30),
+                    ),
+                    const SizedBox(
+                      height: 60,
+                    ),
+                  ],)
+                ],),
+                  // Column(children: [
+                  //   Icon(Icons.directions_walk, color: Colors.blue, size: 40,),
+                  //   Row(children: const [
+                  //     Text(
+                  //       '#',
+                  //       style: TextStyle(fontSize: 30),
+                  //     ),
+                  //     SizedBox(
+                  //       height: 60,
+                  //     ),
+                  //   ],)
+                  // ],),
+                  // Column(children: [
+                  //   Icon(Icons.no_food, color: Colors.blue, size: 40,),
+                  //   Row(children: const [
+                  //     Text(
+                  //       '0',
+                  //       style: TextStyle(fontSize: 30),
+                  //     ),
+                  //     SizedBox(
+                  //       height: 60,
+                  //     ),
+                  //   ],)
+                  // ],
+                  // ),
+                ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Text("현재 위치 : $gap1  $gap2"),
+              child: Text("움직인 거리 : ${hap}m",style: TextStyle(fontSize: 25),),
             ),
             Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text("마지막 위치 : $gap3  $gap4"),
+              padding: const EdgeInsets.all(10.0),
+              child: Text("시작 위치 : $now1  $now2"),
             ),
             Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text("움직인 거리 : $result"),
-            )
+              padding: const EdgeInsets.all(10.0),
+              child: Text("현재 위치 : $gap3  $gap4"),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text("2초간 이동 거리 : $result"),
+            ),
+
           ],
 
         ),
@@ -235,46 +275,18 @@ class _RecodingState extends State<Recoding> {
     );
   }
 
-  void running() {
-    getLocation();
-    gap1 = nowLatitude;
-    gap2 = nowLongitude;
-
-    while (true) {
-      Timer.periodic(Duration(seconds: 2), (timer) {
-        count++;
-        getLocation();
-        gap3 = nowLatitude;
-        gap4 = nowLongitude;
-        result = pointToPoint(gap1, gap3, gap2, gap4);
-      });
-      if (count == 10) {
-        break;
-      }
-    }
-  }
-
   void _click() {
     _isPlaying = !_isPlaying;
     if (_icon == Icons.play_arrow) {
       _icon = Icons.pause;
       _color = Colors.grey;
-      gap1 = 0;
-      gap2 = 0;
-      gap3 = 0;
-      gap4 = 0;
-      result = 0;
-      getLocation();
-      gap1 = nowLatitude;
-      gap2 = nowLongitude;
-
       _start();
-      // running();
-    } else {
       getLocation();
-      gap3 = nowLatitude;
-      gap4 = nowLongitude;
-      result = pointToPoint(gap1, gap3, gap2, gap4);
+      keepGetLocation();
+    } else {
+      _icon = Icons.play_arrow;
+      _color = Colors.amber;
+      _pause();
     }
   }
 
@@ -296,7 +308,10 @@ class _RecodingState extends State<Recoding> {
       gap2 = 0;
       gap3 = 0;
       gap4 = 0;
+      now1 = 0;
+      now2 = 0;
       result = 0;
+      hap = 0;
       _icon = Icons.play_arrow;
       _color = Colors.amber;
       if (_icon == Icons.pause) {

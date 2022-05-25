@@ -15,6 +15,7 @@ class FirstPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
+                // alignment: Alignment.,
                 height: 700,
                 width: 350,
                 color: Colors.amber[300],
@@ -22,7 +23,9 @@ class FirstPage extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   children: <Widget>[
                     GestureDetector(
+                      
                       child: Card(
+                        // color: Colors.amber.shade100,
                         shape: RoundedRectangleBorder(  //모서리를 둥글게 하기 위해 사용
                           borderRadius: BorderRadius.circular(16.0),
                         ),
@@ -30,9 +33,7 @@ class FirstPage extends StatelessWidget {
                           children: <Widget>[
                             Padding(
                                 padding: EdgeInsets.all(10),
-                                child: Container(
-                                  child: Text("푸름",style: TextStyle(fontSize: 30,color:Colors.amber[700]))
-                                )),
+                                child: Text("푸름",textAlign: TextAlign.center,style: TextStyle(fontSize: 30,color:Colors.amber[700]))),
 
                             Padding(
                               padding: const EdgeInsets.all(10.0),

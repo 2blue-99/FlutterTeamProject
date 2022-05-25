@@ -5,9 +5,6 @@ import './sub/FirstPage.dart';
 import './sub/SecondPage.dart';
 import './sub/ThirdPage.dart';
 import 'animalItem.dart';
-// import 'location.dart';
-// import 'loginPage.dart';
-
 void main() {
   runApp(MyApp());
 }
