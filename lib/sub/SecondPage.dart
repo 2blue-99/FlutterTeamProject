@@ -41,10 +41,17 @@ class _SecondPage extends State<SecondPage> {
   dynamic controller;
 
   @override
-  // void initState(){
-  //   super.initState();
-  //   controller = ListView;
-  // }
+  void initState(){
+    super.initState();
+    controller = ListView;
+    cardColor1 = Colors.white;
+    cardColor2 = Colors.white;
+    cardColor3 = Colors.white;
+    textColor1 = Colors.amber.shade500;
+    textColor2 = Colors.amber.shade500;
+    textColor3 = Colors.amber.shade500;
+    buttonColor = Colors.amber.shade500;
+  }
   //
 
 
@@ -81,10 +88,10 @@ class _SecondPage extends State<SecondPage> {
                             child: Column(
                               children: <Widget>[
                                 Lottie.network(
-                                    'https://assets4.lottiefiles.com/packages/lf20_Pkg2zS.json',
+                                    'https://assets2.lottiefiles.com/packages/lf20_1ILlx2.json',
                                     width: 127),
-                                Text("Weight", style: TextStyle(
-                                    fontSize: 30, height: 2, color: textColor1))
+                                Text("\nRunning\nFast",textAlign : TextAlign.center,style: TextStyle(
+                                    fontSize: 30, height: 1, color: textColor1))
                               ],
                             ),
                             elevation: 4.0, //그림자 깊이
@@ -117,8 +124,8 @@ class _SecondPage extends State<SecondPage> {
                                 Lottie.network(
                                     'https://assets2.lottiefiles.com/packages/lf20_8wcbr8x0.json',
                                     width: 127),
-                                Text("Running", style: TextStyle(
-                                    fontSize: 30, height: 2, color: textColor2))
+                                Text("\nRunning", style: TextStyle(
+                                    fontSize: 30, height: 1, color: textColor2))
                               ],
                             ),
                             elevation: 4.0, //그림자 깊이
@@ -150,8 +157,8 @@ class _SecondPage extends State<SecondPage> {
                                 Lottie.network(
                                     'https://assets8.lottiefiles.com/packages/lf20_bpn4s7tl.json',
                                     width: 127),
-                                Text("Walking", style: TextStyle(fontSize: 30,
-                                    height: 2,
+                                Text("\nWalking", style: TextStyle(fontSize: 30,
+                                    height: 1,
                                     color: textColor3)),
                               ],
                             ),

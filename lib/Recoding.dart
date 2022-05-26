@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import "package:flutter/material.dart";
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
@@ -19,8 +18,6 @@ class _RecodingState extends State<Recoding> {
 
   num count = 0;
 
-  // dynamic nowLocation1 =0;
-  // dynamic nowLocation2 =0;
   dynamic gap1 = "";
   dynamic gap2 = "";
   dynamic gap3 = "";
@@ -81,7 +78,7 @@ class _RecodingState extends State<Recoding> {
       gap3 = position.latitude;
       gap4 = position.longitude;
       result = pointToPoint(gap1, gap3, gap2, gap4);
-      if (result<=1){
+      if (result<=2){
         result=0;
       }
       hap = hap + result;
@@ -120,6 +117,7 @@ class _RecodingState extends State<Recoding> {
       floatingActionButton: FloatingActionButton(
         onPressed: () =>
             setState(() {
+              _start();
               _click();
             }),
         child: Icon(_icon),
@@ -160,6 +158,7 @@ class _RecodingState extends State<Recoding> {
                 children: [
                   MaterialButton(
                     onPressed: () {
+                      _isPlaying = !_isPlaying;
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => (Result())),
@@ -280,7 +279,7 @@ class _RecodingState extends State<Recoding> {
     if (_icon == Icons.play_arrow) {
       _icon = Icons.pause;
       _color = Colors.grey;
-      _start();
+
       getLocation();
       keepGetLocation();
     } else {
@@ -303,6 +302,7 @@ class _RecodingState extends State<Recoding> {
   }
 
   void _reset() {
+    _isPlaying = !_isPlaying;
     setState(() {
       gap1 = 0;
       gap2 = 0;
