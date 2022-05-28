@@ -18,14 +18,14 @@ class Result extends StatefulWidget {
   State<Result> createState() => _Result();
   List<resultList>? list;
 
-  void intState(){
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-    print("@@@@@@@@@sec : ${sec}");
-    print("@@@@@@@@@minute : ${minute}");
-    print("@@@@@@@@@hap : ${hap}");
-    print("@@@@@@@@@weight : ${weight}");
-    print("@@@@@@@@@typeText : ${typeText}");
-  }
+  // void intState(){
+  //   print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+  //   print("@@@@@@@@@sec : ${sec}");
+  //   print("@@@@@@@@@minute : ${minute}");
+  //   print("@@@@@@@@@hap : ${hap}");
+  //   print("@@@@@@@@@weight : ${weight}");
+  //   print("@@@@@@@@@typeText : ${typeText}");
+  // }
 
 
 }
@@ -33,8 +33,9 @@ class Result extends StatefulWidget {
 class _Result extends State<Result> {
 
 
-  void intState(){
+  void initState(){
     super.initState();
+    calorie(widget.typeText);
     print("@@@@@@@@@sec : ${widget.sec}");
     print("@@@@@@@@@minute : ${widget.minute}");
     print("@@@@@@@@@hap : ${widget.hap}");
@@ -50,37 +51,24 @@ class _Result extends State<Result> {
 
 
   void calorie(type){
+    print("들어왔어");
     if(type == "Walking"){
       data =  (0.9/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
+      print("@@@@@@@@@값이야@@@@@@@@ : $data");
       // runSec = 3600hout + 60minute + sec
       //   (0.9/15/60)*체중*renSec
     }if(type == "Running"){
       data = (1.2/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
+      print("@@@@@@@@값이야@@@@@@@@@ : $data");
     // runSec = 3600hout + 60minute + sec
     // (1.2/15/60)*체중*renSec
     }else{
       data = (2/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
+      print("@@@@@@@@값이야@@@@@@@@@ : $data");
     // runSec = 3600hour + 60minute + sec
     // (2/15/60)*체중*runSec
     }
   }
-  // calorie(type){
-  //   if(type == "Walking"){
-  //     return  (0.9/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
-  //     // runSec = 3600hout + 60minute + sec
-  //     //   (0.9/15/60)*체중*renSec
-  //   }if(type == "Running"){
-  //     return (1.2/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
-  //     // runSec = 3600hout + 60minute + sec
-  //     // (1.2/15/60)*체중*renSec
-  //   }else{
-  //     return (2/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
-  //     // runSec = 3600hour + 60minute + sec
-  //     // (2/15/60)*체중*runSec
-  //   }
-  // }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +204,7 @@ class _Result extends State<Result> {
                   // ),
                   Column(//calorie(widget.typeText)
                     children: <Widget>[
-                      Text("heello",
+                      Text("${data.toStringAsFixed(2)}",
                         style: TextStyle(
                             fontFamily: 'BinggraeⅡ-Bold',
                             fontSize: 30,
