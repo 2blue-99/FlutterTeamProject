@@ -1,158 +1,321 @@
 import "package:flutter/material.dart";
-
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'Recoding.dart';
-import 'sub/SecondPage.dart';
+import 'package:teamproject/sub/ThirdPage.dart';
+import 'resultList.dart';
+import 'sub/ThirdPage.dart';
 import 'main.dart';
+// import 'ThirdPage.dart';
 
 class Result extends StatefulWidget {
+
+  String? hap, typeText;
+  dynamic sec;
+  dynamic minute;
+  dynamic weight;
+  Result({this.sec, this.minute ,this.hap, this.weight, this.typeText});
+
   @override
-  State<Result> createState() => _MyHomePage();
+  State<Result> createState() => _Result();
+  List<resultList>? list;
+
+  void intState(){
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    print("@@@@@@@@@sec : ${sec}");
+    print("@@@@@@@@@minute : ${minute}");
+    print("@@@@@@@@@hap : ${hap}");
+    print("@@@@@@@@@weight : ${weight}");
+    print("@@@@@@@@@typeText : ${typeText}");
+  }
+
+
 }
 
-class _MyHomePage extends State<Result> {
+class _Result extends State<Result> {
+
+
+  void intState(){
+    super.initState();
+    print("@@@@@@@@@sec : ${widget.sec}");
+    print("@@@@@@@@@minute : ${widget.minute}");
+    print("@@@@@@@@@hap : ${widget.hap}");
+    print("@@@@@@@@@weight : ${widget.weight}");
+    print("@@@@@@@@@typeText : ${widget.typeText}");
+  }
+  // dynamic Weight = int.parse(widget.weight.toString());
+
+  dynamic data;
   String formattedDate =
-  DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
+      DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
+  String formatDate = DateFormat('yy-MM-dd').format(DateTime.now());
+
+
+  void calorie(type){
+    if(type == "Walking"){
+      data =  (0.9/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
+      // runSec = 3600hout + 60minute + sec
+      //   (0.9/15/60)*체중*renSec
+    }if(type == "Running"){
+      data = (1.2/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
+    // runSec = 3600hout + 60minute + sec
+    // (1.2/15/60)*체중*renSec
+    }else{
+      data = (2/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
+    // runSec = 3600hour + 60minute + sec
+    // (2/15/60)*체중*runSec
+    }
+  }
+  // calorie(type){
+  //   if(type == "Walking"){
+  //     return  (0.9/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
+  //     // runSec = 3600hout + 60minute + sec
+  //     //   (0.9/15/60)*체중*renSec
+  //   }if(type == "Running"){
+  //     return (1.2/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
+  //     // runSec = 3600hout + 60minute + sec
+  //     // (1.2/15/60)*체중*renSec
+  //   }else{
+  //     return (2/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
+  //     // runSec = 3600hour + 60minute + sec
+  //     // (2/15/60)*체중*runSec
+  //   }
+  // }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('뛰어라, Running Mate'),
-          backgroundColor: Colors.white,
-          titleTextStyle: TextStyle(
-              fontFamily:'BinggraeⅡ-Bold',
-              color: Colors.orange,
-              letterSpacing: 2.0,
-              fontSize: 22.0,
-              fontWeight: FontWeight.bold),
-        ),
-        body: SafeArea(
+      appBar: AppBar(
+        title: Text('뛰어라, Running Mate'),
+        backgroundColor: Colors.orange,
+        titleTextStyle: const TextStyle(
+            fontFamily: 'BinggraeⅡ-Bold',
+            color: Colors.white,
+            letterSpacing: 2.0,
+            fontSize: 22.0,
+            fontWeight: FontWeight.bold),
+      ),
+      body: Container(
+        color: Colors.amber[50],
+        child: SafeArea(
             child: Column(
-              children: <Widget>[
-                Container(
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 20, top: 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Text(
-                          formattedDate,
-                          style: TextStyle(fontFamily:'BinggraeⅡ-Bold', fontSize: 15, color: Colors.amber),
-                        ),
-                        Text(
-                          '실외 런닝',
-                          style: TextStyle(fontFamily:'BinggraeⅡ-Bold', fontSize: 20, color: Colors.orange),
-                        ),
-                      ],
-                    ),
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 20, top: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Text(
+                    formattedDate,
+                    style: const TextStyle(
+                        fontFamily: 'BinggraeⅡ-Bold',
+                        fontSize: 15,
+                        color: Colors.amber),
                   ),
-                ),
-                Container(width: 500, child: Divider(thickness: 2.0)),
-                Container(
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 30, top: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              '3.01',
-                              style: TextStyle(fontFamily:'BinggraeⅡ-Bold', fontSize: 50, color: Colors.amber),
-                            ),
-                            Text(
-                              'km',
-                              style: TextStyle(fontFamily:'BinggraeⅡ-Bold', fontSize: 20, color: Colors.orange),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Icon(Icons.directions_run),
-                            Text(
-                              '총 달린 거리',
-                              style: TextStyle(fontFamily:'BinggraeⅡ-Bold', fontSize: 20, color: Colors.orange),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  Text(
+                    '${widget.typeText}',
+                    style: TextStyle(
+                        fontFamily: 'BinggraeⅡ-Bold',
+                        fontSize: 20,
+                        color: Colors.orange),
                   ),
-                ),
-                Container(
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 150),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              '15:01',
-                              style: TextStyle(fontFamily:'BinggraeⅡ-Bold', fontSize: 30, color: Colors.amber),
-                            ),
-                            Row(children: <Widget>[
-                              Icon(Icons.timer, color: Colors.blue,),
-                              Text(
-                                '시간',
-                                style: TextStyle(fontFamily:'BinggraeⅡ-Bold', fontSize: 20, color: Colors.orange),
-                              ),
-                            ])
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              '05:00',
-                              style: TextStyle(fontFamily:'BinggraeⅡ-Bold', fontSize: 30, color: Colors.amber),
-                            ),
-                            Row(children: <Widget>[
-                              Icon(Icons.alarm_on, color: Colors.blue,),
-                              Text(
-                                '평균 페이스',
-                                style: TextStyle(fontFamily:'BinggraeⅡ-Bold', fontSize: 20, color: Colors.orange),
-                              ),
-                            ]),
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              '430',
-                              style: TextStyle(fontFamily:'BinggraeⅡ-Bold', fontSize: 30, color: Colors.amber),
-                            ),
-                            Row(
-                              children: <Widget>[
-                                Icon(Icons.fastfood, color: Colors.blue,),
-                                Text(
-                                  '칼로리',
-                                  style:
-                                  TextStyle(fontFamily:'BinggraeⅡ-Bold', fontSize: 20, color: Colors.orange),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 100),
-                  child: Column(
+                ],
+              ),
+            ),
+            SizedBox(width: 500, child: Divider(thickness: 2.0)),
+            Padding(
+              padding: EdgeInsets.only(left: 30, top: 10),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
                     children: <Widget>[
-                      ElevatedButton(child: Text('홈으로', style: TextStyle(fontFamily:'BinggraeⅡ-Bold', fontSize: 20)),
-                          style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.orange),),
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(
-                                builder: (_) => MyHomePage()));
-                          })
+                      Text(
+                        "${widget.hap}",
+                        style: const TextStyle(
+                            fontFamily: 'BinggraeⅡ-Bold',
+                            fontSize: 50,
+                            color: Colors.amber),
+                      ),
+                      const Text(
+                        'm',
+                        style: TextStyle(
+                            fontFamily: 'BinggraeⅡ-Bold',
+                            fontSize: 20,
+                            color: Colors.orange),
+                      )
                     ],
                   ),
-                )
-              ],
-            )));
+                  Row(
+                    children: const <Widget>[
+                      Icon(Icons.directions_run),
+                      Text(
+                        '총 달린 거리',
+                        style: TextStyle(
+                            fontFamily: 'BinggraeⅡ-Bold',
+                            fontSize: 20,
+                            color: Colors.orange),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 150),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Text(
+                        "${widget.minute}분 ${widget.sec}초",
+                        style: TextStyle(
+                            fontFamily: 'BinggraeⅡ-Bold',
+                            fontSize: 30,
+                            color: Colors.amber),
+                      ),
+                      Row(children: const <Widget>[
+                        Icon(
+                          Icons.timer,
+                          color: Colors.black,
+                        ),
+                        Text(
+                          '시간',
+                          style: TextStyle(
+                              fontFamily: 'BinggraeⅡ-Bold',
+                              fontSize: 20,
+                              color: Colors.orange),
+                        ),
+                      ])
+                    ],
+                  ),
+                  // Column(
+                  //   children: <Widget>[
+                  //     const Text(
+                  //       '05:00',
+                  //       style: TextStyle(
+                  //           fontFamily: 'BinggraeⅡ-Bold',
+                  //           fontSize: 30,
+                  //           color: Colors.amber),
+                  //     ),
+                  //     Row(children: const <Widget>[
+                  //       Icon(
+                  //         Icons.alarm_on,
+                  //         color: Colors.black,
+                  //       ),
+                  //       Text(
+                  //         '평균 페이스',
+                  //         style: TextStyle(
+                  //             fontFamily: 'BinggraeⅡ-Bold',
+                  //             fontSize: 20,
+                  //             color: Colors.orange),
+                  //       ),
+                  //     ]),
+                  //   ],
+                  // ),
+                  Column(//calorie(widget.typeText)
+                    children: <Widget>[
+                      Text("heello",
+                        style: TextStyle(
+                            fontFamily: 'BinggraeⅡ-Bold',
+                            fontSize: 30,
+                            color: Colors.amber),
+                      ),
+                      Row(
+                        children: const <Widget>[
+                          Icon(
+                            Icons.fastfood,
+                            color: Colors.black,
+                          ),
+                          Text(
+                            '칼로리',
+                            style: TextStyle(
+                                fontFamily: 'BinggraeⅡ-Bold',
+                                fontSize: 20,
+                                color: Colors.orange),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        )),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.amber,
+        shape: CircularNotchedRectangle(),
+        notchMargin: 10,
+        child: Container(
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Row(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MaterialButton(
+                    onPressed: () {
+                      setState(() {
+                        Navigator.of(context).pop();
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_back, color: Colors.blue),
+                        Text('뒤로 가기', style: TextStyle(color: Colors.blue))
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  MaterialButton(
+                    onPressed: () {
+                      
+                      calorie(widget.typeText);
+
+                      var result = resultList(
+                          type: widget.typeText,
+                          distance: widget.hap,
+                          secTime: widget.sec,
+                          minuteTime: widget.minute,
+                          calorie: data,
+                          date: formattedDate,
+                          todayTime: formatDate);
+                      widget.list?.add(result);
+                      print(result);
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return MyHomePage(
+                          userid: "",
+                          password: "",
+                          height: "",
+                          weight: "",
+                          resultLists: [result],
+                        );
+                      }));
+                      setState(() {});
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.book, color: Colors.blue),
+                        Text('결과 저장', style: TextStyle(color: Colors.blue)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

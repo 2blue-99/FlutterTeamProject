@@ -1,10 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:lottie/lottie.dart';
-import '../animalItem.dart';
+import '../resultList.dart';
 
 class FirstPage extends StatelessWidget {
-  final List<Animal>? list;
-  FirstPage({Key? key, this.list}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,9 +1,6 @@
-// import "package:flutter/material.dart";
-// import 'package:teamproject/sub/SecondPage.dart';
-// import './sub/SecondPage.dart';
-// import 'main.dart';
+import 'package:flutter/material.dart';
+import 'package:teamproject/main.dart';
 
-import "package:flutter/material.dart";
 
 class LoginPage extends StatefulWidget {
   @override
@@ -11,116 +8,154 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  //텍스트필드 값 추출
+  TextEditingController userId = TextEditingController();
+  TextEditingController PassWord = TextEditingController();
+  TextEditingController Height = TextEditingController();
+  TextEditingController Weight = TextEditingController();
 
-  String userId = '';
-  String password = '';
+  void _sendThirdPage(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context){
+      return MyHomePage(userid: userId.text, password: PassWord.text,
+          height: Height.text, weight: Weight.text, resultLists: [],);
+    }));
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Center(
-        child: Column(
-          children: <Widget> [
-            Text("ssssssssssssssssssssss"),
-            makeRowContainer('ID',true),
-            makeRowContainer('Password',false),
-            makeRowContainer('Height', false),
-            makeRowContainer('Weight', false),
-            Container(child: ElevatedButton(
-                child: Text('LOGIN', style: TextStyle(fontSize: 20)),
-                onPressed: (){
-
-                }
-            ))
-          ],
-          mainAxisAlignment: MainAxisAlignment.center,
+    debugShowCheckedModeBanner: false;
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(color: Colors.amber.shade300),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SizedBox(
+                child: Image.asset('imageP/picture.png'),
+              ),
+              SizedBox(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        //color: Colors.white
+                      ),
+                      width: 170,
+                      height: 300,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('ID',style: TextStyle(color: Colors.white, fontSize: 38,
+                              fontWeight: FontWeight.w600)),
+                          Text('P.W',style: TextStyle(color: Colors.white, fontSize: 38,
+                              fontWeight: FontWeight.w600)),
+                          Text('Height',style: TextStyle(color: Colors.white, fontSize: 38,
+                              fontWeight: FontWeight.w600)),
+                          Text('Weight',style: TextStyle(color: Colors.white, fontSize: 38,
+                              fontWeight: FontWeight.w600)),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        //color: Colors.red
+                      ),
+                      height: 300,
+                      width: 170,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextField(
+                            controller: userId,
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white,
+                                        width: 4.0
+                                    )
+                                )
+                            ),
+                          ),
+                          TextField(
+                            controller: PassWord,
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white,
+                                        width: 4.0
+                                    )
+                                )
+                            ),
+                          ),
+                          TextField(
+                            controller: Height,
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white,
+                                        width: 4.0
+                                    )
+                                )
+                            ),
+                          ),
+                          TextField(
+                            controller: Weight,
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.white,
+                                        width: 4.0
+                                    )
+                                )
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: Colors.white
+                    ),
+                    child: Text('Login', style: TextStyle(fontSize: 40, color: Colors.amber.shade800)),
+                    onPressed: (){
+                      _sendThirdPage(context);
+                      print(userId.text);
+                      print(PassWord.text);
+                      print(Height.text);
+                      print(Weight.text);
+                    }
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget makeRowContainer(String title, bool isUserName){
-    return Container(
-      child: Row(
-        children: <Widget> [
-          makeText(title),
-          makeTextField(isUserName),
-        ],
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      ),
-      padding: EdgeInsets.only(left: 60, right: 60, top: 8, bottom: 8),
-    );
-  }
-
-  Widget makeText(String title){
-    return Text(
-      title,
-      style: TextStyle(
-          fontSize: 20
-      ),
-    );
-  }
-
-  Widget makeTextField(bool isUserName){
-    return Container(
-      child: TextField(
-          controller: TextEditingController(),
-          style: TextStyle(fontSize: 20, color: Colors.black),
-          textAlign: TextAlign.center,
-          decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: Colors.red,
-                    width: 2.0
-                ),
-              ),
-              contentPadding: EdgeInsets.all(12)
-          ),
-          onChanged: (String str){
-            if(isUserName)
-              userId = str;
-            else
-              password = str;
-          }
-      ),
-      width: 200,
-      padding: EdgeInsets.only(left: 16),
-    );
+  //텍스트가 지워졌을 때 컨트롤러도 지우게 만듦
+  @override
+  void dispose() {
+    userId.dispose();
+    PassWord.dispose();
+    Height.dispose();
+    Weight.dispose();
+    super.dispose();
   }
 }
-
-
-
-//
-// class LoginPage extends StatefulWidget {
-//   @override
-//   State<LoginPage> createState() => _LoginPageState();
-// }
-//
-// class _LoginPageState extends State<LoginPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//         child: Center(
-//           child: Column(
-//             children: <Widget>[
-//               Padding(
-//                 padding: EdgeInsets.all(50),
-//                 child: ElevatedButton(
-//                   child: Text("login"),
-//                   onPressed: (){
-//                     Navigator.push(
-//                       context,
-//                       MaterialPageRoute(builder: (context) => (SecondPage())),
-//                     );
-//                   }
-//                     )
-//                   ),
-//             ],
-//           ),)
-//     ),
-//     );
-//   }
-// }

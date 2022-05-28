@@ -1,14 +1,18 @@
 import "package:flutter/material.dart";
-import '../animalItem.dart';
+import '../resultList.dart';
+
 
 class ThirdPage extends StatefulWidget {
-  const ThirdPage({Key? key}) : super(key: key);
+  final String? userid,password,height,weight;
+  final List<resultList>? list;
+  ThirdPage({this.userid,this.password,this.height,this.weight, this.list});
 
   @override
   State<ThirdPage> createState() => _ThirdPageState();
 }
 
 class _ThirdPageState extends State<ThirdPage> {
+  // final List<resultList>? list;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,12 +33,15 @@ class _ThirdPageState extends State<ThirdPage> {
                       width: 120,
                       child: Column(
                         children: <Widget>[
-                          Text(
-                            "사용자 정보",
-                            style: TextStyle(fontSize: 25),
+                          const Text(
+                            "ID",
+                            style: TextStyle(fontSize: 25, color: Colors.white),
                           ),
-                          Text("\nID", style: TextStyle(
-                              fontSize: 25, color: Colors.white))
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text("${widget.userid}",
+                                style: TextStyle(fontSize: 33, color: Colors.black)),
+                          )
                         ],
                       ),
                     ),
@@ -42,10 +49,13 @@ class _ThirdPageState extends State<ThirdPage> {
                       width: 120,
                       child: Column(
                         children: <Widget>[
-                          Text("키(cm)", style: TextStyle(
-                              fontSize: 25)),
-                          Text("\n170", style: TextStyle(
-                              fontSize: 25, color: Colors.white))
+                          Text("키(cm)", style: TextStyle(fontSize: 25,color: Colors.white)),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text("${widget.height}",
+                                style:
+                                TextStyle(fontSize: 33, color: Colors.black)),
+                          )
                         ],
                       ),
                     ),
@@ -53,224 +63,63 @@ class _ThirdPageState extends State<ThirdPage> {
                       width: 120,
                       child: Column(
                         children: <Widget>[
-                          Text("몸무게(kg)", style: TextStyle(
-                              fontSize: 25)),
-                          Text("\n68", style: TextStyle(
-                              fontSize: 25, color: Colors.white))
+                          Text("몸무게(kg)", style: TextStyle(fontSize: 25,color: Colors.white)),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text("${widget.weight}",
+                                style:
+                                TextStyle(fontSize: 33, color: Colors.black)),
+                          )
                         ],
                       ),
                     )
-                  ],),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                width: 400,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Container(
-                          width: 400,
-                          child: Row(
-                            children: <Widget>[
-                              Icon(Icons.edit_note, size: 30),
-                              Text("기록", textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      fontSize: 25, color: Colors.black)),
-                            ],
-                          )),
-                    ),
-
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 15),
-                      child: Container(
-                          width: 400,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              border: Border.all(width: 2,
-                                  color: Colors.white)),
-                          child: const Center(
-                            child: Text("[  type / 날짜 / 거리 / 시간 / 칼로리  ]",
-                              textAlign: TextAlign.center, style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                              ),),
-                          )
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 15),
-                      child: Container(
-                          width: 400,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              border: Border.all(width: 2,
-                                  color: Colors.white)),
-                          // color: Colors.amber.shade700,
-                          child: const Center(
-                            child: Text("[  type / 날짜 / 거리 / 시간 / 칼로리  ]",
-                              textAlign: TextAlign.center, style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                              ),),
-                          )
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 15),
-                      child: Container(
-                          width: 400,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              border: Border.all(width: 2,
-                                  color: Colors.white)),
-                          // color: Colors.amber.shade700,
-                          child: const Center(
-                            child: Text("[  type / 날짜 / 거리 / 시간 / 칼로리  ]",
-                              textAlign: TextAlign.center, style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                              ),),
-                          )
-                      ),
-                    ), Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 15),
-                      child: Container(
-                          width: 400,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              border: Border.all(width: 2,
-                                  color: Colors.white)),
-                          // color: Colors.amber.shade700,
-                          child: const Center(
-                            child: Text("[  type / 날짜 / 거리 / 시간 / 칼로리  ]",
-                              textAlign: TextAlign.center, style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                              ),),
-                          )
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15, bottom: 15),
-                      child: Container(
-                          width: 400,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              border: Border.all(width: 2,
-                                  color: Colors.white)),
-                          // color: Colors.amber.shade700,
-                          child: Center(
-                            child: Text("[  type / 날짜 / 거리 / 시간 / 칼로리  ]",
-                              textAlign: TextAlign.center, style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                              ),),
-                          )
-                      ),
-                    ),
-
                   ],
                 ),
               ),
-            )
+            ),
 
+            Text("\n"),
 
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Container(
+                  width: 400,
+                  child: Row(
+                    children: const <Widget>[
+                      Icon(Icons.edit_note, size: 30),
+                      Text("기록",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 25, color: Colors.black)),
+                    ],
+                  )),
+            ),
+
+            Padding(
+                padding: const EdgeInsets.all(10),
+                child: Container(
+                  width: 500,
+                  height: 350,
+                  decoration: BoxDecoration(
+                      border: Border.all(width: 2, color: Colors.white)),
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      return Card(
+                        color: Colors.amber.shade400,
+                        child: InkWell(
+                          child: Text("[${index+1}] 날짜 : ${widget.list![index].date} / 시간 : ${widget.list![index].todayTime} / \n모드 : ${widget.list![index].type} / "
+                              "거리 : ${widget.list![index].distance} / 시간 : ${widget.list![index].minuteTime}분 ${widget.list![index].secTime}초  / "
+                              "칼로리 : ${widget.list![index].calorie}",
+                            style: const TextStyle(fontSize: 15,color: Colors.white),
+                          ),
+                        ),
+                      );
+                    },
+                    itemCount: widget.list!.length,
+                  ),
+                ))
           ],
         ),
       ),
     );
   }
 }
-//
-//
-//
-// class ThirdPage extends StatefulWidget {
-//   const ThirdPage({Key? key}) : super(key: key);
-//
-//   @override
-//   State<ThirdPage> createState() => _ThirdPageState();
-// }
-// class _ThirdPageState extends State<ThirdPage> {
-//   String? type = "";
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Container(
-//         child: Column(
-//           //mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             Padding(
-//               padding: EdgeInsets.fromLTRB(0, 30, 0, 50),
-//               child: Padding(
-//                 padding: const EdgeInsets.all(8.0),
-//                 child: Container(
-//                   child: Row(
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: <Widget>[
-//                       Container(
-//                         width: 120,
-//                         child: Column(
-//                           children: <Widget>[
-//                             Text(
-//                               "사용자 정보",
-//                               style: TextStyle(fontSize: 25),
-//                             ),
-//                             Text("\nID", style: TextStyle(fontSize: 20))
-//                           ],
-//                         ),
-//                       ),
-//                       Container(
-//                         width: 120,
-//                         child: Column(
-//                           children: <Widget>[
-//                             Text("키(cm)", style: TextStyle(fontSize: 25)),
-//                             Text("\n170", style: TextStyle(fontSize: 20))
-//                           ],
-//                         ),
-//                       ),
-//                       Container(
-//                         width: 120,
-//                         child: Column(
-//                           children: <Widget>[
-//                             Text("몸무게(kg)", style: TextStyle(fontSize: 25)),
-//                             Text("\n68", style: TextStyle(fontSize: 20))
-//                           ],
-//                         ),
-//                       )
-//                     ],
-//                   ),
-//                 ),
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Container(
-//                 child: Column(
-//                   children: <Widget>[
-//                     Padding(
-//                       padding: const EdgeInsets.all(15),
-//                       child: Container(
-//                         child: Text("$type, ",style: TextStyle(fontSize: 25)),
-//                       ),
-//                     ),
-//                     Container(
-//                       child: Text("hello"),
-//                     ),
-//                     Container(
-//                       child: Text("hello"),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-

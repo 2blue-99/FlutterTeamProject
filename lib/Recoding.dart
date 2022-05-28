@@ -9,15 +9,20 @@ String formatDate(DateTime d) {
   return d.toString().substring(0, 19);
 }
 
+
+
 class Recoding extends StatefulWidget {
+  String? weight, typeText;
+  Recoding(this.weight ,this.typeText);
   @override
   _RecodingState createState() => _RecodingState();
 }
 
+
+
 class _RecodingState extends State<Recoding> {
 
   num count = 0;
-
   dynamic gap1 = "";
   dynamic gap2 = "";
   dynamic gap3 = "";
@@ -25,17 +30,20 @@ class _RecodingState extends State<Recoding> {
   dynamic now1="";
   dynamic now2="";
   final Distance distance = Distance();
-  dynamic nowLatitude;
-  dynamic nowLongitude;
   var _icon = Icons.play_arrow;
   var _color = Colors.amber;
   num result = 0;
-  num hap = 0;
-
+  dynamic hap = 0;
+  bool downloading = false;
   late Timer _timer;
-  var _time = 0;
+  dynamic _time = 0;
   var _isPlaying = false;
   List<String> _saveTimes = []; //기록할때 쓸 리스트
+  dynamic nowTime;
+  dynamic sec;
+  dynamic minute;
+  dynamic hour;
+
 
   @override
   void dispose() {
@@ -45,56 +53,74 @@ class _RecodingState extends State<Recoding> {
 
   @override
   void initState() {
-    getLocation();
-    gap1 = 0;
-    gap2 = 0;
-    gap3 = 0;
-    gap4 = 0;
-    now1 = 0;
-    now2 = 0;
-    result = 0;
-    hap = 0;
+    // startGetLocation();
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@$now1 $now2");
+    // gap1 = 0;
+    //     // gap2 = 0;
+    //     // gap3 = 0;
+    //     // gap4 = 0;
+    //     // now1 = 0;
+    //     // now2 = 0;
+    // result = 0;
+    // hap = 0;
   }
 
-  void getLocation() async {
+  void startGetLocation() async {
     LocationPermission permission = await Geolocator.requestPermission();
     Position position = await Geolocator.
     getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    now1 = position.latitude;
-    now2 = position.longitude;
-    gap1 = now1;
-    gap2 = now2;
+    setState((){
+      gap1 = position.latitude;
+      gap2 = position.longitude;
+      print("start : $gap1 $gap2");
+    });
   }
 
-  void keepGetLocation() async {
-    while(true) {
-      if (_isPlaying == false){
-        break;
-      }
-      sleep(const Duration(seconds:2));
-      LocationPermission permission = await Geolocator.requestPermission();
-      Position position = await Geolocator.
-      getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  void endGetLocation() async {
+    LocationPermission permission = await Geolocator.requestPermission();
+    Position position = await Geolocator.
+    getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    setState((){
       gap3 = position.latitude;
       gap4 = position.longitude;
-      result = pointToPoint(gap1, gap3, gap2, gap4);
-      if (result<=2){
-        result=0;
-      }
-      hap = hap + result;
-      count++;
-      gap1 = gap3;
-      gap2 = gap4;
-    }
+      print("start : $gap3 $gap4");
+    });
   }
 
-  num pointToPoint(double locate1, double locate2, double longitude1,
-      double longitude2) {
-    dynamic km = distance.as(
-        LengthUnit.Meter, LatLng(locate1, longitude1),
-        LatLng(locate2, longitude2));
-    return km;
+  void pointToPoint() {
+    Timer(Duration(seconds: 1), () {
+      dynamic km = distance.as(
+          LengthUnit.Meter, LatLng(gap1, gap3),
+          LatLng(gap2, gap4));
+      setState((){
+        hap = km;
+      });
+    });
   }
+
+  // void keepGetLocation() async {
+  //   while(true) {
+  //     if (_isPlaying == false){
+  //       break;
+  //     }
+  //     sleep(const Duration(seconds:2));
+  //     LocationPermission permission = await Geolocator.requestPermission();
+  //     Position position = await Geolocator.
+  //     getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  //     gap3 = position.latitude;
+  //     gap4 = position.longitude;
+  //     result = pointToPoint(gap1, gap3, gap2, gap4);
+  //     if (result<=1){
+  //       result=0;
+  //     }
+  //     hap = hap + result;
+  //     count++;
+  //     gap1 = gap3;
+  //     gap2 = gap4;
+  //   }
+  // }
+
+
 
 
   @override
@@ -117,12 +143,10 @@ class _RecodingState extends State<Recoding> {
       floatingActionButton: FloatingActionButton(
         onPressed: () =>
             setState(() {
-              _start();
               _click();
             }),
         child: Icon(_icon),
         backgroundColor: _color,
-
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
@@ -135,19 +159,19 @@ class _RecodingState extends State<Recoding> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MaterialButton(
                     onPressed: () {
                       setState(() {
-                        _reset();
+                        Navigator.of(context).pop();
                       });
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.timer_off, color: Colors.blue),
-                        Text('리셋', style: TextStyle(color: Colors.blue))
+                        Icon(Icons.arrow_back, color: Colors.blue),
+                        Text('뒤로 가기', style: TextStyle(color: Colors.blue))
                       ],
                     ),
                   ),
@@ -158,10 +182,14 @@ class _RecodingState extends State<Recoding> {
                 children: [
                   MaterialButton(
                     onPressed: () {
-                      _isPlaying = !_isPlaying;
+                      // print("시간입니다. ${_time ~/ 100}");
+                      print("$sec,$minute,$hour");
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => (Result())),
+                        MaterialPageRoute(
+                            builder: (context) => (Result( sec : sec,
+                                minute : minute ,hap: hap.toString(),
+                              weight: widget.weight, typeText : widget.typeText))),
                       );
                     },
                     child: Column(
@@ -181,10 +209,11 @@ class _RecodingState extends State<Recoding> {
     );
   }
 
+
   Widget _body() {
-    var sec = _time ~/ 100;
-    var minute = _time ~/ 6000;
-    var hour = _time ~/ 60000;
+    sec = _time ~/ 100;
+    minute = _time ~/ 6000;
+    hour = _time ~/ 60000;
     while (sec > 59)
       sec -= 60;
     while (minute > 59)
@@ -197,76 +226,59 @@ class _RecodingState extends State<Recoding> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(40.0),
+              padding: const EdgeInsets.all(15.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
                 children: <Widget>[Column(children: [
-                  Icon(Icons.timer, color: Colors.amber, size: 40,),
                   Row(children: [
-                    Text("시간 : ",style: TextStyle(fontSize: 25),),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: const Icon(Icons.timer, color: Colors.amber, size: 40,),
+                    ),
+                    Text("시간   ",style: TextStyle(fontSize: 50),),
                     Text(
                       '$hour',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 50),
                     ),
                     Text(
                       ':$minute',
-                      style: TextStyle(fontSize: 30),
+                      style: TextStyle(fontSize: 50),
                     ),
                     Text(
                       ':$sec',
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    const SizedBox(
-                      height: 60,
+                      style: TextStyle(fontSize: 50),
                     ),
                   ],)
                 ],),
-                  // Column(children: [
-                  //   Icon(Icons.directions_walk, color: Colors.blue, size: 40,),
-                  //   Row(children: const [
-                  //     Text(
-                  //       '#',
-                  //       style: TextStyle(fontSize: 30),
-                  //     ),
-                  //     SizedBox(
-                  //       height: 60,
-                  //     ),
-                  //   ],)
-                  // ],),
-                  // Column(children: [
-                  //   Icon(Icons.no_food, color: Colors.blue, size: 40,),
-                  //   Row(children: const [
-                  //     Text(
-                  //       '0',
-                  //       style: TextStyle(fontSize: 30),
-                  //     ),
-                  //     SizedBox(
-                  //       height: 60,
-                  //     ),
-                  //   ],)
-                  // ],
-                  // ),
+                ],
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0.0, 10, 0.0, 0.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: const Icon(Icons.add_road, color: Colors.amber, size: 40,),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Text("거리    ${hap}m",style: TextStyle(fontSize: 50),),
+                  ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text("움직인 거리 : ${hap}m",style: TextStyle(fontSize: 25),),
+              padding: const EdgeInsets.all(10.0),
+              child: Text("시작 위치 : $gap1  $gap2"),
             ),
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text("시작 위치 : $now1  $now2"),
+              child: Text("마지막위치 : $gap3  $gap4"),
             ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text("현재 위치 : $gap3  $gap4"),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text("2초간 이동 거리 : $result"),
-            ),
-
           ],
 
         ),
@@ -277,15 +289,30 @@ class _RecodingState extends State<Recoding> {
   void _click() {
     _isPlaying = !_isPlaying;
     if (_icon == Icons.play_arrow) {
+      if(_time != 0){
+        _reset();
+      }
+      // _reset();
       _icon = Icons.pause;
       _color = Colors.grey;
-
-      getLocation();
-      keepGetLocation();
+      _start();
+      startGetLocation();
+      // gap1 = now1;
+      // gap2 = now2;
     } else {
       _icon = Icons.play_arrow;
       _color = Colors.amber;
       _pause();
+      endGetLocation();
+      pointToPoint();
+      // nowTime = _time;/
+      // gap3 = now1;
+      // gap4 = now2;
+      // Timer(Duration(seconds: 1), () {
+      //
+      // });
+
+
     }
   }
 
@@ -302,7 +329,6 @@ class _RecodingState extends State<Recoding> {
   }
 
   void _reset() {
-    _isPlaying = !_isPlaying;
     setState(() {
       gap1 = 0;
       gap2 = 0;
@@ -312,8 +338,6 @@ class _RecodingState extends State<Recoding> {
       now2 = 0;
       result = 0;
       hap = 0;
-      _icon = Icons.play_arrow;
-      _color = Colors.amber;
       if (_icon == Icons.pause) {
         _icon = Icons.play_arrow;
         _color = Colors.amber;
@@ -322,6 +346,7 @@ class _RecodingState extends State<Recoding> {
       _timer.cancel();
       _time = 0;
     });
+
   }
 }
 
