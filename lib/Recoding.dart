@@ -84,41 +84,19 @@ class _RecodingState extends State<Recoding> {
       gap3 = position.latitude;
       gap4 = position.longitude;
       print("start : $gap3 $gap4");
+      pointToPoint();
     });
   }
 
   void pointToPoint() {
-    Timer(Duration(seconds: 1), () {
-      dynamic km = distance.as(
-          LengthUnit.Meter, LatLng(gap1, gap3),
-          LatLng(gap2, gap4));
-      setState((){
-        hap = km;
-      });
+    // print("@@@@@longitude ${gap1}, latitude ${gap2}, longitude ${gap3},  latitude ${gap4}");
+    dynamic km = Geolocator.distanceBetween(gap2, gap1, gap4, gap3);
+    // dynamic km = distance.as(
+    //     LengthUnit.Meter, LatLng(gap1, gap3), LatLng(gap2, gap4));
+    setState(() {
+      hap = km.toStringAsFixed(1);
     });
   }
-
-  // void keepGetLocation() async {
-  //   while(true) {
-  //     if (_isPlaying == false){
-  //       break;
-  //     }
-  //     sleep(const Duration(seconds:2));
-  //     LocationPermission permission = await Geolocator.requestPermission();
-  //     Position position = await Geolocator.
-  //     getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-  //     gap3 = position.latitude;
-  //     gap4 = position.longitude;
-  //     result = pointToPoint(gap1, gap3, gap2, gap4);
-  //     if (result<=1){
-  //       result=0;
-  //     }
-  //     hap = hap + result;
-  //     count++;
-  //     gap1 = gap3;
-  //     gap2 = gap4;
-  //   }
-  // }
 
 
 
@@ -182,7 +160,6 @@ class _RecodingState extends State<Recoding> {
                 children: [
                   MaterialButton(
                     onPressed: () {
-                      // print("시간입니다. ${_time ~/ 100}");
                       print("$sec,$minute,$hour");
                       Navigator.push(
                         context,
@@ -221,22 +198,22 @@ class _RecodingState extends State<Recoding> {
 
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(40),
+        padding: const EdgeInsets.all(10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
                 children: <Widget>[Column(children: [
                   Row(children: [
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(15.0),
                       child: const Icon(Icons.timer, color: Colors.amber, size: 40,),
                     ),
-                    Text("시간   ",style: TextStyle(fontSize: 50),),
+                    Text("시간  ",style: TextStyle(fontSize: 50),),
                     Text(
                       '$hour',
                       style: TextStyle(fontSize: 50),
@@ -261,18 +238,15 @@ class _RecodingState extends State<Recoding> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(0.0),
+                    padding: const EdgeInsets.all(15.0),
                     child: const Icon(Icons.add_road, color: Colors.amber, size: 40,),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text("거리    ${hap}m",style: TextStyle(fontSize: 50),),
-                  ),
+                  Text("거리  ${hap}m",style: TextStyle(fontSize: 50),),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.fromLTRB(0.0, 60, 0.0, 0.0),
               child: Text("시작 위치 : $gap1  $gap2"),
             ),
             Padding(
@@ -292,7 +266,6 @@ class _RecodingState extends State<Recoding> {
       if(_time != 0){
         _reset();
       }
-      // _reset();
       _icon = Icons.pause;
       _color = Colors.grey;
       _start();
@@ -304,7 +277,7 @@ class _RecodingState extends State<Recoding> {
       _color = Colors.amber;
       _pause();
       endGetLocation();
-      pointToPoint();
+      // pointToPoint();
       // nowTime = _time;/
       // gap3 = now1;
       // gap4 = now2;

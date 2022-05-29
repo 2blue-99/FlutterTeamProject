@@ -51,20 +51,20 @@ class _Result extends State<Result> {
 
 
   void calorie(type){
-    print("들어왔어");
+    // print("들어왔어");
     if(type == "Walking"){
-      data =  (0.9/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
-      print("@@@@@@@@@값이야@@@@@@@@ : $data");
+      data.toString =  (0.9/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
+      // print("@@@@@@@@@값이야@@@@@@@@ : $data");
       // runSec = 3600hout + 60minute + sec
       //   (0.9/15/60)*체중*renSec
     }if(type == "Running"){
       data = (1.2/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
-      print("@@@@@@@@값이야@@@@@@@@@ : $data");
+      // print("@@@@@@@@값이야@@@@@@@@@ : $data");
     // runSec = 3600hout + 60minute + sec
     // (1.2/15/60)*체중*renSec
     }else{
       data = (2/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
-      print("@@@@@@@@값이야@@@@@@@@@ : $data");
+      // print("@@@@@@@@값이야@@@@@@@@@ : $data");
     // runSec = 3600hour + 60minute + sec
     // (2/15/60)*체중*runSec
     }
@@ -178,30 +178,6 @@ class _Result extends State<Result> {
                       ])
                     ],
                   ),
-                  // Column(
-                  //   children: <Widget>[
-                  //     const Text(
-                  //       '05:00',
-                  //       style: TextStyle(
-                  //           fontFamily: 'BinggraeⅡ-Bold',
-                  //           fontSize: 30,
-                  //           color: Colors.amber),
-                  //     ),
-                  //     Row(children: const <Widget>[
-                  //       Icon(
-                  //         Icons.alarm_on,
-                  //         color: Colors.black,
-                  //       ),
-                  //       Text(
-                  //         '평균 페이스',
-                  //         style: TextStyle(
-                  //             fontFamily: 'BinggraeⅡ-Bold',
-                  //             fontSize: 20,
-                  //             color: Colors.orange),
-                  //       ),
-                  //     ]),
-                  //   ],
-                  // ),
                   Column(//calorie(widget.typeText)
                     children: <Widget>[
                       Text("${data.toStringAsFixed(2)}",
@@ -265,7 +241,6 @@ class _Result extends State<Result> {
                 children: [
                   MaterialButton(
                     onPressed: () {
-                      
                       calorie(widget.typeText);
 
                       var result = resultList(
@@ -273,18 +248,27 @@ class _Result extends State<Result> {
                           distance: widget.hap,
                           secTime: widget.sec,
                           minuteTime: widget.minute,
-                          calorie: data,
+                          calorie: data.toStringAsFixed(1),
                           date: formattedDate,
                           todayTime: formatDate);
                       widget.list?.add(result);
                       print(result);
+                      // Navigator.pop(context, )
+                      // Navigator.of(context).popUntil(
+                      //   MaterialPageRoute(builder: (BuildContext context){
+                      //     return MyHomePage(resultLists: [result]);
+                      //   })
+                      // )
+                      // Navigator.of(context).(
+                      //     MaterialPageRoute(builder: (BuildContext context) {
+                      //   return MyHomePage(
+                      //     resultLists: [result],
+                      //   );
+                      // }));
+                      // Navigator.popUntil(context,"hello");
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (BuildContext context) {
                         return MyHomePage(
-                          userid: "",
-                          password: "",
-                          height: "",
-                          weight: "",
                           resultLists: [result],
                         );
                       }));
