@@ -1,15 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 import "package:flutter/material.dart";
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong/latlong.dart';
 import "Result.dart";
-
-String formatDate(DateTime d) {
-  return d.toString().substring(0, 19);
-}
-
-
 
 class Recoding extends StatefulWidget {
   String? weight, typeText;
@@ -38,8 +31,6 @@ class _RecodingState extends State<Recoding> {
   late Timer _timer;
   dynamic _time = 0;
   var _isPlaying = false;
-  List<String> _saveTimes = []; //기록할때 쓸 리스트
-  dynamic nowTime;
   dynamic sec;
   dynamic minute;
   dynamic hour;
@@ -51,33 +42,16 @@ class _RecodingState extends State<Recoding> {
     super.dispose();
   }
 
-  @override
-  void initState() {
-    // startGetLocation();
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@$now1 $now2");
-    // gap1 = 0;
-    //     // gap2 = 0;
-    //     // gap3 = 0;
-    //     // gap4 = 0;
-    //     // now1 = 0;
-    //     // now2 = 0;
-    // result = 0;
-    // hap = 0;
-  }
-
   void startGetLocation() async {
-    LocationPermission permission = await Geolocator.requestPermission();
     Position position = await Geolocator.
     getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     setState((){
       gap1 = position.latitude;
       gap2 = position.longitude;
-      print("start : $gap1 $gap2");
     });
   }
 
   void endGetLocation() async {
-    LocationPermission permission = await Geolocator.requestPermission();
     Position position = await Geolocator.
     getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     setState((){
@@ -89,10 +63,7 @@ class _RecodingState extends State<Recoding> {
   }
 
   void pointToPoint() {
-    // print("@@@@@longitude ${gap1}, latitude ${gap2}, longitude ${gap3},  latitude ${gap4}");
     dynamic km = Geolocator.distanceBetween(gap2, gap1, gap4, gap3);
-    // dynamic km = distance.as(
-    //     LengthUnit.Meter, LatLng(gap1, gap3), LatLng(gap2, gap4));
     setState(() {
       hap = km.toStringAsFixed(1);
     });
@@ -137,7 +108,6 @@ class _RecodingState extends State<Recoding> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Row(
-                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MaterialButton(
                     onPressed: () {
@@ -160,15 +130,7 @@ class _RecodingState extends State<Recoding> {
                 children: [
                   MaterialButton(
                     onPressed: () {
-                      print("$sec,$minute,$hour");
                       mainDataGiveGet(context);
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => (Result( sec : sec,
-                      //           minute : minute ,hap: hap.toString(),
-                      //         weight: widget.weight, typeText : widget.typeText))),
-                      // );
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -271,21 +233,12 @@ class _RecodingState extends State<Recoding> {
       _color = Colors.grey;
       _start();
       startGetLocation();
-      // gap1 = now1;
-      // gap2 = now2;
+
     } else {
       _icon = Icons.play_arrow;
       _color = Colors.amber;
       _pause();
       endGetLocation();
-      // pointToPoint();
-      // nowTime = _time;/
-      // gap3 = now1;
-      // gap4 = now2;
-      // Timer(Duration(seconds: 1), () {
-      //
-      // });
-
 
     }
   }
@@ -325,11 +278,9 @@ class _RecodingState extends State<Recoding> {
   mainDataGiveGet(BuildContext context) async {
     resultData = await Navigator.push(
       context,
-      // 다음 단계에서 SelectionScreen 위젯을 만들 겁니다.
       MaterialPageRoute(builder: (context) => Result( sec : sec,
           minute : minute ,hap: hap.toString(),
           weight: widget.weight, typeText : widget.typeText)));
-    print("resultData : ${resultData}");
   }
 
 }

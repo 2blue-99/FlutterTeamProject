@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:lottie/lottie.dart';
 import "package:flutter/material.dart";
-import '../main.dart';
 import '../resultList.dart';
 import '../Recoding.dart';
 
@@ -19,8 +18,6 @@ class SecondPage extends StatefulWidget {
 class _SecondPage extends State<SecondPage> {
   final nameController = TextEditingController();
   int random = Random().nextInt(4);
-  int? _radioValue = 0;
-  bool? flyExist = false;
   String? _type = "";
   Color myColor = Colors.amber.shade500;
   Color changeText = Colors.amber.shade900;
@@ -219,22 +216,6 @@ class _SecondPage extends State<SecondPage> {
               ))),
     );
   }
-  _radioChange(int? value) {
-    setState(() {
-      _radioValue = value;
-    });
-  }
-
-  getKind(int? radioValue) {
-    switch (radioValue) {
-      case 0:
-        return "Inseaaaaaaaact";
-      case 1:
-        return "Plants";
-      case 2:
-        return "Animal";
-    }
-  }
 
   mainDataGiveGet(BuildContext context) async {
     final resultData = await Navigator.push(
@@ -242,11 +223,7 @@ class _SecondPage extends State<SecondPage> {
       MaterialPageRoute(builder: (context) => Recoding(widget.weight ,_type)),
     );
     widget.list?.add(resultData);
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage(resultLists: [resultData],)));
-    print("resultData : ${resultData}");
-    // Navigator.pop(context, resultData);
   }
-
 }
 
 

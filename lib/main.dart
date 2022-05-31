@@ -15,13 +15,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Tabbar Example',
-      // home: MyHomePage(),
       home: LoginPage(),
-      // home: Pureum(),
-      initialRoute: "/",
-      // routes:{"/":(context)
     );
+
   }
 }
 
@@ -41,9 +39,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePage extends State<MyHomePage> with SingleTickerProviderStateMixin {
   TabController? controller;
   Color iconColor = Colors.amber;
-
-  dynamic leepureum;
-  // List<resultList> resultLists = new List.empty(growable:true); //동물정보 담을 리스트
 
   @override
   Widget build(BuildContext context) {
@@ -83,10 +78,6 @@ class _MyHomePage extends State<MyHomePage> with SingleTickerProviderStateMixin 
   void initState(){
     super.initState();
     controller = TabController(length: 3, vsync: this,initialIndex: 1);
-
-    // widget.resultLists.add(resultList(type: 5, distance: 5, time: 5, calorie: 5, averageSpeed: 5));
-    // widget.resultLists.add(resultList(type: 5, distance: 5, time: 5, calorie: 5, averageSpeed: 5));
-    // widget.resultLists.add(resultList(type: 5, distance: 5, time: 5, calorie: 5, averageSpeed: 5));
   }
 
   void dispose(){

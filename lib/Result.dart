@@ -1,10 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:intl/intl.dart';
-import 'package:teamproject/sub/ThirdPage.dart';
 import 'resultList.dart';
-import 'sub/ThirdPage.dart';
-import 'main.dart';
-// import 'ThirdPage.dart';
 
 class Result extends StatefulWidget {
 
@@ -18,16 +14,6 @@ class Result extends StatefulWidget {
   State<Result> createState() => _Result();
   List<resultList>? list;
 
-  // void intState(){
-  //   print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-  //   print("@@@@@@@@@sec : ${sec}");
-  //   print("@@@@@@@@@minute : ${minute}");
-  //   print("@@@@@@@@@hap : ${hap}");
-  //   print("@@@@@@@@@weight : ${weight}");
-  //   print("@@@@@@@@@typeText : ${typeText}");
-  // }
-
-
 }
 
 class _Result extends State<Result> {
@@ -36,13 +22,7 @@ class _Result extends State<Result> {
   void initState(){
     super.initState();
     calorie(widget.typeText);
-    print("@@@@@@@@@sec : ${widget.sec}");
-    print("@@@@@@@@@minute : ${widget.minute}");
-    print("@@@@@@@@@hap : ${widget.hap}");
-    print("@@@@@@@@@weight : ${widget.weight}");
-    print("@@@@@@@@@typeText : ${widget.typeText}");
   }
-  // dynamic Weight = int.parse(widget.weight.toString());
 
   dynamic data;
   dynamic resultData;
@@ -52,22 +32,15 @@ class _Result extends State<Result> {
 
 
   void calorie(type){
-    // print("들어왔어");
     if(type == "Walking"){
       data.toString =  (0.9/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
-      // print("@@@@@@@@@값이야@@@@@@@@ : $data");
-      // runSec = 3600hout + 60minute + sec
-      //   (0.9/15/60)*체중*renSec
+
     }if(type == "Running"){
       data = (1.2/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
-      // print("@@@@@@@@값이야@@@@@@@@@ : $data");
-    // runSec = 3600hout + 60minute + sec
-    // (1.2/15/60)*체중*renSec
+
     }else{
       data = (2/15/60) * double.parse(widget.weight) * (60 *widget.minute + widget.sec);
-      // print("@@@@@@@@값이야@@@@@@@@@ : $data");
-    // runSec = 3600hour + 60minute + sec
-    // (2/15/60)*체중*runSec
+
     }
   }
 
@@ -220,7 +193,6 @@ class _Result extends State<Result> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Row(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   MaterialButton(
                     onPressed: () {
@@ -252,26 +224,6 @@ class _Result extends State<Result> {
                           date: formattedDate,
                           todayTime: formatDate);
                       widget.list?.add(result);
-                      print("result \n ${result.distance}");
-                      // Navigator.pop(context, )
-                      // Navigator.of(context).popUntil(
-                      //   MaterialPageRoute(builder: (BuildContext context){
-                      //     return MyHomePage(resultLists: [result]);
-                      //   })
-                      // )
-                      // Navigator.of(context).(
-                      //     MaterialPageRoute(builder: (BuildContext context) {
-                      //   return MyHomePage(
-                      //     resultLists: [result],
-                      //   );
-                      // }));
-                      // Navigator.popUntil(context,"hello");
-                      // Navigator.of(context).push(
-                      //     MaterialPageRoute(builder: (BuildContext context) {
-                      //   return MyHomePage(
-                      //     resultLists: [result],
-                      //   );
-                      // }));
                       Navigator.pop(context, result);
                       setState(() {});
                     },

@@ -1,6 +1,4 @@
 import "package:flutter/material.dart";
-import 'package:lottie/lottie.dart';
-import '../resultList.dart';
 
 class FirstPage extends StatelessWidget {
   @override
@@ -13,7 +11,6 @@ class FirstPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                // alignment: Alignment.,
                 height: 700,
                 width: 350,
                 color: Colors.amber[300],
@@ -23,7 +20,6 @@ class FirstPage extends StatelessWidget {
                     GestureDetector(
                       
                       child: Card(
-                        // color: Colors.amber.shade100,
                         shape: RoundedRectangleBorder(  //모서리를 둥글게 하기 위해 사용
                           borderRadius: BorderRadius.circular(16.0),
                         ),
@@ -117,10 +113,8 @@ class FirstPage extends StatelessWidget {
                       onTap: (){
                       },
                     ),
-
                   ],
                 ),
-                // mainAxisAlignment: MainAxisAlignment.spaceAround,
               ),
             ],
           ),
