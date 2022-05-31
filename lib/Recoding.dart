@@ -21,7 +21,7 @@ class Recoding extends StatefulWidget {
 
 
 class _RecodingState extends State<Recoding> {
-
+  dynamic resultData;
   num count = 0;
   dynamic gap1 = "";
   dynamic gap2 = "";
@@ -142,7 +142,7 @@ class _RecodingState extends State<Recoding> {
                   MaterialButton(
                     onPressed: () {
                       setState(() {
-                        Navigator.of(context).pop();
+                        Navigator.pop(context, resultData);
                       });
                     },
                     child: Column(
@@ -161,13 +161,14 @@ class _RecodingState extends State<Recoding> {
                   MaterialButton(
                     onPressed: () {
                       print("$sec,$minute,$hour");
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => (Result( sec : sec,
-                                minute : minute ,hap: hap.toString(),
-                              weight: widget.weight, typeText : widget.typeText))),
-                      );
+                      mainDataGiveGet(context);
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => (Result( sec : sec,
+                      //           minute : minute ,hap: hap.toString(),
+                      //         weight: widget.weight, typeText : widget.typeText))),
+                      // );
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -319,7 +320,17 @@ class _RecodingState extends State<Recoding> {
       _timer.cancel();
       _time = 0;
     });
-
   }
+
+  mainDataGiveGet(BuildContext context) async {
+    resultData = await Navigator.push(
+      context,
+      // 다음 단계에서 SelectionScreen 위젯을 만들 겁니다.
+      MaterialPageRoute(builder: (context) => Result( sec : sec,
+          minute : minute ,hap: hap.toString(),
+          weight: widget.weight, typeText : widget.typeText)));
+    print("resultData : ${resultData}");
+  }
+
 }
 

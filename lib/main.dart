@@ -15,10 +15,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Tabbar Example',
-        // home: MyHomePage(),
-        home: LoginPage()
+      title: 'Tabbar Example',
+      // home: MyHomePage(),
+      home: LoginPage(),
       // home: Pureum(),
+      initialRoute: "/",
+      // routes:{"/":(context)
     );
   }
 }
@@ -29,6 +31,7 @@ class MyHomePage extends StatefulWidget {
   final String? userid,password,height,weight;
   MyHomePage({this.userid,this.password,this.height,this.weight, required this.resultLists});
 
+
   @override
   State<StatefulWidget> createState(){
     return _MyHomePage();
@@ -38,6 +41,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePage extends State<MyHomePage> with SingleTickerProviderStateMixin {
   TabController? controller;
   Color iconColor = Colors.amber;
+
+  dynamic leepureum;
   // List<resultList> resultLists = new List.empty(growable:true); //동물정보 담을 리스트
 
   @override
@@ -54,11 +59,16 @@ class _MyHomePage extends State<MyHomePage> with SingleTickerProviderStateMixin 
         ],
       ),
       body: TabBarView(
-        children: <Widget> [FirstPage(), SecondPage(weight: widget.weight,), ThirdPage(userid: widget.userid,password: widget.password,
+        children: <Widget> [FirstPage(), SecondPage(weight: widget.weight, list: widget.resultLists), ThirdPage(userid: widget.userid,password: widget.password,
             height: widget.height,weight: widget.weight, list: widget.resultLists)],
 
         controller: controller,
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: Colors.white,
+      //   child: Text("Start",style: TextStyle(fontSize : 20, color : Colors.amber.shade300)),
+      //   onPressed: () {  },),
+
       bottomNavigationBar: TabBar(
         tabs: const <Tab>[
           Tab(icon: Icon(Icons.person_add, color: Colors.orange)),

@@ -3,8 +3,11 @@ import '../resultList.dart';
 
 
 class ThirdPage extends StatefulWidget {
-  final String? userid,password,height,weight;
-  final List<resultList>? list;
+  String? password;
+  String? userid = "이푸름";
+  String? height = "170";
+  String? weight = "70";
+  List<resultList>? list;
   ThirdPage({this.userid,this.password,this.height,this.weight, this.list});
 
   @override
@@ -12,6 +15,18 @@ class ThirdPage extends StatefulWidget {
 }
 
 class _ThirdPageState extends State<ThirdPage> {
+
+  void initState(){
+    if (widget.userid == null || widget.userid == ""){
+      widget.userid = "이푸름";
+    }
+    if (widget.height == null || widget.height == ""){
+      widget.height = "170";
+    }
+    if (widget.weight == null || widget.weight == ""){
+      widget.weight = "70";
+    }
+  }
   // final List<resultList>? list;
   @override
   Widget build(BuildContext context) {

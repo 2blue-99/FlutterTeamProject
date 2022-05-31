@@ -8,10 +8,10 @@ import 'main.dart';
 
 class Result extends StatefulWidget {
 
-  String? hap, typeText;
+  String? hap, typeText = "Running";
   dynamic sec;
   dynamic minute;
-  dynamic weight;
+  dynamic weight = "70";
   Result({this.sec, this.minute ,this.hap, this.weight, this.typeText});
 
   @override
@@ -45,6 +45,7 @@ class _Result extends State<Result> {
   // dynamic Weight = int.parse(widget.weight.toString());
 
   dynamic data;
+  dynamic resultData;
   String formattedDate =
       DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
   String formatDate = DateFormat('yy-MM-dd').format(DateTime.now());
@@ -242,7 +243,6 @@ class _Result extends State<Result> {
                   MaterialButton(
                     onPressed: () {
                       calorie(widget.typeText);
-
                       var result = resultList(
                           type: widget.typeText,
                           distance: widget.hap,
@@ -252,7 +252,7 @@ class _Result extends State<Result> {
                           date: formattedDate,
                           todayTime: formatDate);
                       widget.list?.add(result);
-                      print(result);
+                      print("result \n ${result.distance}");
                       // Navigator.pop(context, )
                       // Navigator.of(context).popUntil(
                       //   MaterialPageRoute(builder: (BuildContext context){
@@ -266,12 +266,13 @@ class _Result extends State<Result> {
                       //   );
                       // }));
                       // Navigator.popUntil(context,"hello");
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return MyHomePage(
-                          resultLists: [result],
-                        );
-                      }));
+                      // Navigator.of(context).push(
+                      //     MaterialPageRoute(builder: (BuildContext context) {
+                      //   return MyHomePage(
+                      //     resultLists: [result],
+                      //   );
+                      // }));
+                      Navigator.pop(context, result);
                       setState(() {});
                     },
                     child: Column(
