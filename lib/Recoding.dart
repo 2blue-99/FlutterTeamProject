@@ -217,7 +217,6 @@ class _RecodingState extends State<Recoding> {
               child: Text("마지막위치 : $gap3  $gap4"),
             ),
           ],
-
         ),
       ),
     );

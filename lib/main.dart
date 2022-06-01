@@ -1,4 +1,3 @@
-
 import 'loginPage.dart';
 import 'package:flutter/material.dart';
 import './sub/FirstPage.dart';
@@ -44,7 +43,7 @@ class _MyHomePage extends State<MyHomePage> with SingleTickerProviderStateMixin 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("뛰어라, Running Mate",style: TextStyle(color: Colors.orange),),
+        title: const Text("달려라, Running Mate",style: TextStyle(color: Colors.orange, fontWeight: FontWeight.w600)),
         backgroundColor: Colors.white,
         actions: <Widget>[
           IconButton(
@@ -59,10 +58,6 @@ class _MyHomePage extends State<MyHomePage> with SingleTickerProviderStateMixin 
 
         controller: controller,
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: Colors.white,
-      //   child: Text("Start",style: TextStyle(fontSize : 20, color : Colors.amber.shade300)),
-      //   onPressed: () {  },),
 
       bottomNavigationBar: TabBar(
         tabs: const <Tab>[
@@ -85,6 +80,5 @@ class _MyHomePage extends State<MyHomePage> with SingleTickerProviderStateMixin 
     super.dispose();
   }
 }
-
 
 

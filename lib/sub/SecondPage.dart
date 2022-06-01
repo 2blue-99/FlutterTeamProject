@@ -33,10 +33,12 @@ class _SecondPage extends State<SecondPage> {
   Color basicCardColor = Colors.white;
 
   List tips = [
-    "달리기하면 연골이 나갑니다.",
-    "도시의 미세먼지를 마시세요.",
-    "빠르게 달리다 넘어지세요.",
-    "자외선에 익으세요."
+    "러닝 전과 후 꼭 스트레칭을 하세요.",
+    "자신에게 맞는 러닝화를 신으세요.",
+    "러닝 자세를 체크하여 올바른 러닝을 하세요.",
+    "일정한 간격으로 호흡하여 러닝하세요.",
+    "무리한 속도로 뛰면 금방 지칠 수 있어요.",
+    "페이스를 맞춰줄 동료와 함께 러닝하세요."
   ];
   dynamic controller;
 
@@ -65,12 +67,13 @@ class _SecondPage extends State<SecondPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text('[Today\'s Tip]',
-                      style: TextStyle(fontSize: 17, color: Colors.white, height: 0)),
+                      style: TextStyle(fontSize: 25, color: Color(0xfff55757), height: 0, fontWeight: FontWeight.w600)),
                   Padding(
                       padding: EdgeInsets.all(20),
                       child: Text('${tips[random]}',
                           style:
-                          TextStyle(fontSize: 25, color: Colors.white, height: 1))),
+                          TextStyle(fontSize: 20, color: Color(0xfff55757), height: 1, fontWeight: FontWeight.w600))),
+
                   Container(
                     height: 250,
                     color: Colors.amber.shade300,
@@ -189,7 +192,7 @@ class _SecondPage extends State<SecondPage> {
                   ),
                   Text(
                     '$typeText\n\n',
-                    style: TextStyle(fontSize: 20, color: Colors.white, height: 2),
+                    style: TextStyle(fontSize: 28, color: Color(0xfff55757), height: 2, fontWeight: FontWeight.w600),
                   ),
                   Padding(
                       padding: EdgeInsets.all(25),
@@ -225,5 +228,4 @@ class _SecondPage extends State<SecondPage> {
     widget.list?.add(resultData);
   }
 }
-
 
