@@ -24,10 +24,10 @@ class MyApp extends StatelessWidget {
 
 
 class MyHomePage extends StatefulWidget {
-  List<resultList> resultLists = new List.empty(growable:true); //동물정보 담을 리스트
+  List<resultList> resultLists = new List.empty(growable:true); //
   final String? userid,password,height,weight;
-  MyHomePage({this.userid,this.password,this.height,this.weight, required this.resultLists});
-
+  MyHomePage({this.userid,this.password,this.height,this.weight,
+    required this.resultLists});
 
   @override
   State<StatefulWidget> createState(){
@@ -53,9 +53,9 @@ class _MyHomePage extends State<MyHomePage> with SingleTickerProviderStateMixin 
         ],
       ),
       body: TabBarView(
-        children: <Widget> [FirstPage(), SecondPage(weight: widget.weight, list: widget.resultLists), ThirdPage(userid: widget.userid,password: widget.password,
+        children: <Widget> [FirstPage(), SecondPage(weight: widget.weight, list: widget.resultLists),
+          ThirdPage(userid: widget.userid,password: widget.password,
             height: widget.height,weight: widget.weight, list: widget.resultLists)],
-
         controller: controller,
       ),
 

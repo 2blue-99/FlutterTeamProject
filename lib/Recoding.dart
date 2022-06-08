@@ -1,7 +1,6 @@
 import 'dart:async';
 import "package:flutter/material.dart";
 import 'package:geolocator/geolocator.dart';
-import 'package:latlong/latlong.dart';
 import "Result.dart";
 
 class Recoding extends StatefulWidget {
@@ -22,7 +21,6 @@ class _RecodingState extends State<Recoding> {
   dynamic gap4 = "";
   dynamic now1="";
   dynamic now2="";
-  final Distance distance = Distance();
   var _icon = Icons.play_arrow;
   var _color = Colors.amber;
   num result = 0;
@@ -63,9 +61,9 @@ class _RecodingState extends State<Recoding> {
   }
 
   void pointToPoint() {
-    dynamic km = Geolocator.distanceBetween(gap2, gap1, gap4, gap3);
+    dynamic meter = Geolocator.distanceBetween(gap2, gap1, gap4, gap3);
     setState(() {
-      hap = km.toStringAsFixed(1);
+      hap = meter.toStringAsFixed(1);
     });
   }
 
@@ -276,11 +274,10 @@ class _RecodingState extends State<Recoding> {
 
   mainDataGiveGet(BuildContext context) async {
     resultData = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => Result( sec : sec,
-          minute : minute ,hap: hap.toString(),
-          weight: widget.weight, typeText : widget.typeText)));
+        context,
+        MaterialPageRoute(builder: (context) => Result( sec : sec,
+            minute : minute ,hap: hap.toString(),
+            weight: widget.weight, typeText : widget.typeText)));
   }
 
 }
-

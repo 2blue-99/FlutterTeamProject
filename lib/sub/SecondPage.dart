@@ -17,7 +17,7 @@ class SecondPage extends StatefulWidget {
 
 class _SecondPage extends State<SecondPage> {
   final nameController = TextEditingController();
-  int random = Random().nextInt(4);
+  int random = Random().nextInt(6);
   String? _type = "";
   Color myColor = Colors.amber.shade500;
   Color changeText = Colors.amber.shade900;
